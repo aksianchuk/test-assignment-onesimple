@@ -2,7 +2,7 @@ from django.core.validators import URLValidator
 from django.db import models
 
 
-class BaseMedia(models.Model):
+class AbstractMedia(models.Model):
     """
     Абстрактный медиа-объект Instagram.
 
@@ -33,7 +33,7 @@ class BaseMedia(models.Model):
         abstract = True
 
 
-class Post(BaseMedia):
+class Post(AbstractMedia):
     """
     Пост Instagram.
 
@@ -48,7 +48,7 @@ class Post(BaseMedia):
     ig_likes_count = models.PositiveIntegerField()
 
 
-class ChildrenMedia(BaseMedia):
+class ChildrenMedia(AbstractMedia):
     """
     Дочерний медиа-объект поста Instagram типа «Альбом».
 
