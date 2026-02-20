@@ -24,10 +24,15 @@ class BaseMedia(BaseModel):
     timestamp: datetime | None
 
 
-class MediaFieldsChildrenField(BaseMedia):
-    """Схема дочерних полей медиа-объекта."""
+class MediaFieldsChildrenField(BaseModel):
+    """
+    Схема дочерних полей медиа-объекта.
 
-    pass
+    Атрибуты:
+        data: Список объектов BaseMedia.
+    """
+
+    data: list[BaseMedia] | None
 
 
 class MediaFieldsField(BaseMedia):
@@ -37,14 +42,14 @@ class MediaFieldsField(BaseMedia):
     Атрибуты:
         caption: Подпись.
         comments_count: Количество комментариев.
-        likes_count: Количество лайков.
-        children: Список объектов MediaFieldsChildrenField.
+        like_count: Количество лайков.
+        children: Объект MediaFieldsChildrenField.
     """
 
-    caption: str | None = Field(max_length=2200)
-    comments_count: int | None
-    likes_count: int | None
-    children: list[MediaFieldsChildrenField] | None
+    caption: str | None = Field(max_length=2200, default=None)
+    comments_count: int
+    like_count: int
+    children: MediaFieldsChildrenField | None = None
 
 
 class MediaRequest(BaseModel):
@@ -53,14 +58,14 @@ class MediaRequest(BaseModel):
 
     Атрибуты:
         media_id: Идентификатор.
-        fields: Список объектов MediaFieldsField.
+        fields: Объект MediaFieldsField.
     """
 
     media_id: str
-    fields: MediaFieldsField | None
+    fields: MediaFieldsField | None = None
 
 
-class MediaResponsePagingCursorField(BaseMedia):
+class MediaResponsePagingCursorField(BaseModel):
     """
     Схема полей с идентификаторами начала и конца страницы при получении
     медиа-объекта.
@@ -84,7 +89,7 @@ class MediaResponsePagingField(BaseModel):
     """
 
     cursors: MediaResponsePagingCursorField | None
-    next: HttpUrl | None
+    next: HttpUrl | None = None
 
 
 class MediaResponse(BaseModel):
@@ -97,7 +102,7 @@ class MediaResponse(BaseModel):
     """
 
     data: list[MediaFieldsField] | None
-    paging: MediaResponsePagingField | None
+    paging: MediaResponsePagingField = None
 
 
 class CreateCommentMediaRequest(BaseModel):
@@ -139,14 +144,14 @@ class ErrorResponseErrorField(BaseModel):
         fbtrace_id: Внутренний идентификатор для получения техподдержки.
     """
 
-    message: str | None
-    type: str | None
-    code: int | None
-    error_code: int | None
-    is_transient: bool | None
-    error_user_title: str | None
-    error_user_msg: str | None
-    fbtrace_id: str | None
+    message: str | None = None
+    type: str | None = None
+    code: int | None = None
+    error_code: int | None = None
+    is_transient: bool | None = None
+    error_user_title: str | None = None
+    error_user_msg: str | None = None
+    fbtrace_id: str | None = None
 
 
 class ErrorResponse(BaseModel):
