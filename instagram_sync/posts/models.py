@@ -40,12 +40,12 @@ class Post(AbstractMedia):
     Атрибуты:
         ig_caption (CharField): Подпись.
         ig_comments_count (PositiveIntegerField): Количество комментариев.
-        ig_likes_count (PositiveIntegerField): Количество лайков.
+        ig_like_count (PositiveIntegerField): Количество лайков.
     """
 
     ig_caption = models.CharField(max_length=2200, blank=True)
     ig_comments_count = models.PositiveIntegerField()
-    ig_likes_count = models.PositiveIntegerField()
+    ig_like_count = models.PositiveIntegerField()
 
 
 class ChildrenMedia(AbstractMedia):
