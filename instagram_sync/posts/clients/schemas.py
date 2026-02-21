@@ -102,7 +102,7 @@ class MediaResponse(BaseModel):
     """
 
     data: list[MediaFieldsField]
-    paging: MediaResponsePagingField = None
+    paging: MediaResponsePagingField | None = None
 
 
 class CreateCommentMediaRequest(BaseModel):
