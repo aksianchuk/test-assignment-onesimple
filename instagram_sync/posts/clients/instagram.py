@@ -1,9 +1,17 @@
+from json.decoder import JSONDecodeError
 from typing import Any, Dict
 
 import requests
 from django.conf import settings
+from pydantic import ValidationError
 
-from schemas import (
+from posts.clients.exceptions import (
+    InstagramApiClientBaseException,
+    InstagramApiClientConnectionException,
+    InstagramApiClientResponseFormatException,
+    InstagramApiClientTimeoutException,
+)
+from posts.clients.schemas import (
     CreateCommentMediaRequest,
     CreateCommentMediaResponse,
     ErrorResponse,
@@ -114,10 +122,21 @@ class InstagramApiClient:
             response_data = response.json()
             if "error" in response_data:
                 error = ErrorResponse(**response_data)
-                raise Exception(f"instagram_api_client: {error.model_dump()}")
+                raise InstagramApiClientBaseException(
+                    {"detail": error.model_dump()}
+                )
+            response.raise_for_status()
             return response_data
+        except ValidationError as error:
+            raise InstagramApiClientBaseException({"detail": error.errors()})
+        except JSONDecodeError:
+            raise InstagramApiClientResponseFormatException
+        except requests.exceptions.ConnectionError:
+            raise InstagramApiClientConnectionException
+        except requests.exceptions.Timeout:
+            raise InstagramApiClientTimeoutException
         except requests.RequestException as error:
-            raise Exception(f"instagram_api_client: {error}")
+            raise InstagramApiClientBaseException(str(error))
 
 
 instagram_api_client = InstagramApiClient()
