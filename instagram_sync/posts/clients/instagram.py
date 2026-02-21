@@ -42,8 +42,8 @@ class InstagramApiClient:
             f"{self.API_URL}me/media",
             {
                 "fields": (
-                    "id,media_type,media_url,timestamp,caption,comments_count,"
-                    "like_count,children{id,media_type,media_url,timestamp}"
+                    "media_type,media_url,timestamp,caption,comments_count,"
+                    "like_count,children{media_type,media_url,timestamp}"
                 )
             },
         )
