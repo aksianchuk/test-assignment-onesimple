@@ -18,10 +18,10 @@ class BaseMedia(BaseModel):
         timestamp: Дата и время создания.
     """
 
-    id: str | None = Field(max_length=32)
-    media_type: Literal["CAROUSEL_ALBUM", "IMAGE", "VIDEO"] | None
-    media_url: HttpUrl | None
-    timestamp: datetime | None
+    id: str = Field(max_length=32)
+    media_type: Literal["CAROUSEL_ALBUM", "IMAGE", "VIDEO"] | None = None
+    media_url: HttpUrl | None = None
+    timestamp: datetime | None = None
 
 
 class MediaFieldsChildrenField(BaseModel):
@@ -32,7 +32,7 @@ class MediaFieldsChildrenField(BaseModel):
         data: Список объектов BaseMedia.
     """
 
-    data: list[BaseMedia] | None
+    data: list[BaseMedia]
 
 
 class MediaFieldsField(BaseMedia):
@@ -47,8 +47,8 @@ class MediaFieldsField(BaseMedia):
     """
 
     caption: str | None = Field(max_length=2200, default=None)
-    comments_count: int
-    like_count: int
+    comments_count: int | None = None
+    like_count: int | None = None
     children: MediaFieldsChildrenField | None = None
 
 
@@ -88,7 +88,7 @@ class MediaResponsePagingField(BaseModel):
         next: URL-адрес для запроса следующей страницы ответа.
     """
 
-    cursors: MediaResponsePagingCursorField | None
+    cursors: MediaResponsePagingCursorField
     next: HttpUrl | None = None
 
 
@@ -101,7 +101,7 @@ class MediaResponse(BaseModel):
         paging: Объект MediaResponsePagingField.
     """
 
-    data: list[MediaFieldsField] | None
+    data: list[MediaFieldsField]
     paging: MediaResponsePagingField = None
 
 
@@ -162,4 +162,4 @@ class ErrorResponse(BaseModel):
         error: Объект ErrorResponseErrorField.
     """
 
-    error: ErrorResponseErrorField | None
+    error: ErrorResponseErrorField
