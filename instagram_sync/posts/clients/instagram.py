@@ -8,8 +8,10 @@ from pydantic import ValidationError
 from posts.clients.exceptions import (
     InstagramApiClientBaseException,
     InstagramApiClientConnectionException,
+    InstagramApiClientPostNotFoundException,
     InstagramApiClientResponseFormatException,
     InstagramApiClientTimeoutException,
+    InstagramApiClientInvalidAccessTokenException,
 )
 from posts.clients.schemas import (
     CreateCommentMediaRequest,
@@ -30,12 +32,18 @@ class InstagramApiClient:
             (по умолчанию 3).
         API_REQUEST_TIMEOUT (int): Таймаут на ожидание ответа от сервера (по
             умолчанию 10).
+        API_ERROR_EXCEPTION_MAP (dict): Словарь маппинга кодов ошибок API на
+            соответствующие классы исключений.
     """
 
     API_URL = "https://graph.instagram.com/v25.0/"
     API_ACCESS_TOKEN = settings.INSTAGRAM_API_ACCESS_TOKEN
     API_CONNECT_TIMEOUT = 3
     API_REQUEST_TIMEOUT = 10
+    API_ERROR_EXCEPTION_MAP = {
+        100: InstagramApiClientPostNotFoundException,
+        190: InstagramApiClientInvalidAccessTokenException,
+    }
 
     def get_posts(self) -> MediaResponse:
         """
@@ -122,9 +130,13 @@ class InstagramApiClient:
             response_data = response.json()
             if "error" in response_data:
                 error = ErrorResponse(**response_data)
-                raise InstagramApiClientBaseException(
-                    {"detail": error.model_dump()}
+                exception_class = self.API_ERROR_EXCEPTION_MAP.get(
+                    error.error.code,
+                    InstagramApiClientBaseException,
                 )
+                if exception_class is InstagramApiClientBaseException:
+                    raise exception_class({"detail": error.model_dump()})
+                raise exception_class
             response.raise_for_status()
             return response_data
         except ValidationError as error:
