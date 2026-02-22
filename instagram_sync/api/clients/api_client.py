@@ -55,6 +55,7 @@ class InstagramApiClient:
         Возвращает:
             MediaResponse: Pydantic-модель с данными постов.
         """
+
         next_url = next_url or None
         if next_url:
             response_data = self._request("GET", str(next_url))
@@ -106,7 +107,7 @@ class InstagramApiClient:
             params (dict): Параметры запроса.
 
         Возвращает:
-            dict: Результат запроса.
+            dict[str, Any]: JSON-ответ API, распарсенный в словарь.
         """
 
         params = params or {}

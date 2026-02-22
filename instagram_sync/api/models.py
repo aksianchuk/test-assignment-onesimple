@@ -43,12 +43,12 @@ class Post(AbstractMedia):
         ig_like_count (PositiveIntegerField): Количество лайков.
     """
 
-    ig_caption = models.CharField(max_length=2200, blank=True)
+    ig_caption = models.CharField(max_length=2200, blank=True, null=True)
     ig_comments_count = models.PositiveIntegerField()
     ig_like_count = models.PositiveIntegerField()
 
 
-class ChildrenMedia(AbstractMedia):
+class PostChild(AbstractMedia):
     """
     Дочерний медиа-объект поста Instagram типа «Альбом».
 
@@ -57,7 +57,7 @@ class ChildrenMedia(AbstractMedia):
     """
 
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name="children_medias"
+        Post, on_delete=models.CASCADE, related_name="children"
     )
 
 

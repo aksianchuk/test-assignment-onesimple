@@ -87,7 +87,7 @@ class MediaResponsePagingField(BaseModel):
 
     Атрибуты:
         cursors: Объект MediaResponsePagingCursorField.
-        next: URL-адрес для запроса следующей страницы ответа.
+        next: URL-адрес для запроса следующей страницы.
     """
 
     cursors: MediaResponsePagingCursorField
