@@ -1,3 +1,4 @@
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.mixins import ListModelMixin
 from rest_framework.response import Response
@@ -7,8 +8,8 @@ from rest_framework.viewsets import GenericViewSet
 from api.models import Post
 from api.pagination import PostCursorPagination
 from api.serializers import CommentSerializer, PostSerializer
-from api.services.sync_posts import sync_posts
 from api.services.create_comment import create_comment
+from api.services.sync_posts import sync_posts
 
 
 class SyncPostsAPIView(APIView):
@@ -41,4 +42,4 @@ class PostsViewSet(ListModelMixin, GenericViewSet):
             post, text=serializer.validated_data["ig_text"]
         )
         serializer = self.get_serializer(comment)
-        return Response(serializer.data, status=201)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
