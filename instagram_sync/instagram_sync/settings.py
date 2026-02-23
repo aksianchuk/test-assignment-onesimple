@@ -14,9 +14,6 @@ DEBUG = os.getenv("DEBUG", "False").capitalize() == "True"
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
-
-# Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -57,18 +54,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "instagram_sync.wsgi.application"
 
-
-# Database
-
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "HOST": os.getenv("POSTGRES_HOST", ""),
+        "PORT": int(os.getenv("POSTGRES_PORT", "")),
+        "NAME": os.getenv("POSTGRES_DB", ""),
+        "USER": os.getenv("POSTGRES_USER", ""),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD", ""),
     }
 }
-
-
-# Password validation
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -85,9 +80,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -96,14 +88,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-
 STATIC_URL = "static/"
 
-# Default primary key field type
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
 
 INSTAGRAM_API_ACCESS_TOKEN = os.getenv("INSTAGRAM_API_ACCESS_TOKEN", "")
