@@ -16,8 +16,8 @@ class SyncPostsAPIView(APIView):
     """APIView для синхронизации постов Instagram."""
 
     def post(self, request):
-        response = sync_posts()
-        return Response(response)
+        response_message, response_status = sync_posts()
+        return Response(response_message, status=response_status)
 
 
 class PostsViewSet(ListModelMixin, GenericViewSet):
