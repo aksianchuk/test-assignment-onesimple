@@ -10,7 +10,7 @@ def test_create_comment_success(
     api_client, requests_mock, api_url, access_token, post, comment_post_url
 ):
     """
-    Проверяет создание записи в БД и корректность ответа API при успешном
+    Проверяет создание записи в базе и корректность ответа API при успешном
     запросе на создание комментария к посту Instagram.
     """
 
