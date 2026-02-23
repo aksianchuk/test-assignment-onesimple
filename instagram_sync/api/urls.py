@@ -3,6 +3,8 @@ from rest_framework.routers import SimpleRouter
 
 from api.views import SyncPostsAPIView, PostsViewSet
 
+app_name = "api"
+
 router = SimpleRouter()
 
 router.register("posts", PostsViewSet, basename="posts")
