@@ -133,7 +133,7 @@ class InstagramApiClient:
                     ),
                 )
             else:
-                raise ValueError(f"Неподдерживаемый HTTP метод: {method}")
+                raise ValueError(f"Неподдерживаемый HTTP-метод: {method}")
 
             response_data = response.json()
             if "error" in response_data:

@@ -1,8 +1,8 @@
 from api.clients.api_client import client
-from api.models import Comment
+from api.models import Comment, Post
 
 
-def create_comment(post, text) -> Comment:
+def create_comment(post: Post, text: str) -> Comment:
     """
     Создает комментарий к посту Instagram.
 
