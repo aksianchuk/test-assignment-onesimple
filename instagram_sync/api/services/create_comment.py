@@ -7,8 +7,8 @@ def create_comment(post: Post, text: str) -> Comment:
     Создает комментарий к посту Instagram.
 
     Аргументы:
-            post (Post): Объект поста.
-            text (str): Текст комментария.
+        post (Post): Объект поста.
+        text (str): Текст комментария.
 
     Возвращает:
         Comment: Объект созданного комментария.

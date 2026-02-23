@@ -11,7 +11,7 @@ def test_create_comment_success(
 ):
     """
     Проверяет создание записи в БД и корректность ответа API при успешном
-    запросе.
+    запросе на создание комментария к посту Instagram.
     """
 
     comment_id = 1
@@ -43,7 +43,8 @@ def test_error_comment_post_not_found(
     api_client, requests_mock, api_url, access_token
 ):
     """
-    Проверяет обработку ошибки, если пост с указанным `id` отсутствует в базе.
+    Проверяет обработку ошибки, если пост Instagram с указанным `id`
+    отсутствует в базе.
     """
 
     comment_ig_text = "Text"
@@ -67,7 +68,7 @@ def test_error_when_post_not_found_in_instagram(
 ):
     """
     Проверяет обработку ошибки, если указанный пост существует в базе, но его
-    нет уже в Instagram.
+    уже нет в Instagram.
     """
 
     comment_ig_text = "Text"

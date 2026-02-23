@@ -21,7 +21,7 @@ class SyncPostsAPIView(APIView):
 
 
 class PostsViewSet(ListModelMixin, GenericViewSet):
-    """ViewSet для постов."""
+    """ViewSet для постов Instagram."""
 
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -33,7 +33,7 @@ class PostsViewSet(ListModelMixin, GenericViewSet):
         serializer_class=CommentSerializer,
     )
     def comment(self, request, *args, **kwargs):
-        """Добавление комментария к посту."""
+        """Добавление комментария к посту Instagram."""
 
         post = self.get_object()
         serializer = self.get_serializer(data=request.data)

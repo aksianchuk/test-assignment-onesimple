@@ -10,5 +10,5 @@ router = SimpleRouter()
 router.register("posts", PostsViewSet, basename="posts")
 urlpatterns = [
     path("", include(router.urls)),
-    path("sync/", SyncPostsAPIView.as_view()),
+    path("sync/", SyncPostsAPIView.as_view(), name="sync"),
 ]
