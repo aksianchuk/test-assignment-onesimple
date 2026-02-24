@@ -71,7 +71,7 @@ http://localhost:8000
 
 ## Примеры работы с API
 ### 1. Синхронизация постов из Instagram Graph API (POST)
-```http
+```
 http://localhost:8000/api/sync/
 ```
 **Пример успешного ответа:**
@@ -82,7 +82,7 @@ http://localhost:8000/api/sync/
 ```
 
 ### 2. Список всех сохраненных постов из локальной базы данных (GET)
-```http
+```
 http://localhost:8000/api/posts/
 ```
 **Пример успешного ответа:**
@@ -131,7 +131,7 @@ http://localhost:8000/api/posts/
 ```
 
 ### 3. Комментирование постов (POST)
-```http
+```
 http://localhost:8000/api/posts/{id}/comment/
 ```
 `{id}` - внутренний Primary Key поста в локальной базе данных.  
