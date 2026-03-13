@@ -155,7 +155,7 @@ http://localhost:8000/api/posts/{id}/comment/
 
 ## Запуск тестов
 Выполните команду:
-```
+```bash
 docker compose exec backend pytest
 ```
 
